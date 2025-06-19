@@ -79,6 +79,8 @@ struct ContentView: View {
         }
         .alert("Game Over", isPresented: $gameOver) {
             Button("Restart", action: reset)
+        } message: {
+            Text("Your score is \(score)")
         }
         
     }
@@ -94,7 +96,7 @@ struct ContentView: View {
         
         showingScore = true // alert to trigger when flag is tapped when either right or wrong answer is given
         
-        if score == 3 {
+        if score == 8 {
             gameOver = true
         }
     }
@@ -107,6 +109,7 @@ struct ContentView: View {
     func reset() {
         score = 0
         gameOver = false
+        showingScore = false
         askQuestion()
     }
 }
