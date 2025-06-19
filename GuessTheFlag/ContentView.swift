@@ -16,6 +16,8 @@ struct ContentView: View {
     @State private var showingScore = false
     @State private var scoreTitle = ""
     @State private var score = 0
+    @State private var gameOver = false
+    
     
     
     var body: some View {
@@ -75,6 +77,9 @@ struct ContentView: View {
         } message: {
             Text("Your score is \(score)")
         }
+        .alert("Game Over", isPresented: $gameOver) {
+            Button("Restart", action: reset)
+        }
         
     }
     
@@ -88,11 +93,21 @@ struct ContentView: View {
         }
         
         showingScore = true // alert to trigger when flag is tapped when either right or wrong answer is given
+        
+        if score == 3 {
+            gameOver = true
+        }
     }
     
     func askQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+    }
+    
+    func reset() {
+        score = 0
+        gameOver = false
+        askQuestion()
     }
 }
 
